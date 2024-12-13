@@ -1,0 +1,320 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 80%;
+  overflow: hidden;
+  margin: 1rem auto;
+  /* margin-left: 8%;  */
+  /* border: 2px solid grey; */
+  padding: 2rem 50px 0 50px;
+  background-color: #fff;
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  /* gap: 10%; */
+}
+
+.main_title {
+  font-size: 40px;
+  font-weight: bold;
+  /* font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif; */
+  text-align: center;
+  width: 50%;
+  transform: translateX(50%);
+}
+.button {
+  background-color: #5c47d1d0;
+  color: #fff;
+  width: 9rem;
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: 600;
+  /* margin-top: 5px; */
+}
+.icon {
+  width: 20px;
+  margin-right: 10px;
+}
+.button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+.first {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+  width: 100%;
+  background-color: #fff;
+  /* border-radius: 10px; */
+  /* box-shadow: 4px 0 10px 0 rgba(117, 116, 116, 0.2); */
+  overflow: hidden;
+  gap: 10px;
+  padding: 20px;
+  border-bottom: 1px solid rgb(146, 139, 139);
+}
+.first:hover {
+  /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); */
+  cursor: pointer;
+  /* transform: scale(1.01); */
+  /* transition: all 0.2s ease-in-out; */
+}
+
+/* Instructor CSS */
+.second {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+  width: 100%;
+  background-color: #fff;
+  /* border-radius: 10px; */
+  /* box-shadow: 4px 0 10px 0 rgba(117, 116, 116, 0.2); */
+  overflow: hidden;
+  gap: 10px;
+  padding: 20px;
+  border-bottom: 1px solid rgb(146, 139, 139);
+}
+.headertwo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttontwo {
+  background-color: #5c47d1d0;
+  color: #fff;
+  width: auto;
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  border-radius: 5px;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+.icontwo {
+  width: 20px;
+  height: 20px;
+  /* margin-top: 9%;
+  margin-right: 2px; */
+}
+.buttontwo:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+.sub_titles {
+  font-size: 30px;
+  border-bottom: 1px solid grey;
+  padding: 5px;
+}
+.imgcont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  height: 200px;
+  border-radius: 20px;
+}
+.section_title {
+  font-size: 20px;
+}
+.designation {
+  font-size: 13px;
+  color: rgba(108, 105, 105, 0.859);
+}
+.contact {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  justify-content: space-between;
+  margin-left: 22%;
+}
+.phone {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  color: rgb(129, 124, 124);
+  gap: 3px;
+}
+.iconthree {
+  width: 20px;
+  height: 20px;
+  /* margin-top: 14%;
+  margin-right: 2px; */
+}
+.email {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  border-radius: 20px;
+  color: rgb(129, 124, 124);
+}
+.iconfour {
+  width: 20px;
+  height: 20px;
+  /* margin-top: 8%;
+  margin-right: 2px; */
+}
+.phone:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+  transition: all 0.2s ease-in-out;
+}
+.email:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+  transition: all 0.2s ease-in-out;
+}
+.second:hover {
+  /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); */
+  cursor: pointer;
+  /* transform: scale(1.01); */
+  /* transition: all 0.2s ease-in-out; */
+}
+
+/*Subject CSS*/
+.third {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+  width: 100%;
+  background-color: #fff;
+  /* border-radius: 10px; */
+  /* box-shadow: 4px 0 10px 0 rgba(117, 116, 116, 0.2); */
+  /* border-bottom: 2px solid grey; */
+  overflow: hidden;
+  gap: 10px;
+  padding: 20px;
+  /* border-bottom: 1px solid rgb(146, 139, 139); */
+}
+.tableContainer {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.tableContainer,
+.tableHeader,
+.tableData {
+  border: 1px solid #ddd;
+}
+
+.tableHeader,
+.tableData {
+  text-align: center;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.tableHeader {
+  background-color: #b8c867;
+  color: white;
+}
+
+.tableData {
+  background-color: #f9f9f9;
+}
+
+.tableData.break {
+  background-color: #ffeb3b;
+  font-weight: bold;
+  color: #333;
+}
+
+.tableRow:nth-child(even) .tableData {
+  background-color: #f2f2f2;
+}
+
+.tableContainer .tableRow:hover {
+  background-color: #ddd;
+}
+.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.optionE {
+  color: rgb(75, 129, 22);
+}
+.optionE:hover {
+  cursor: pointer;
+  transform: scale(1.21);
+  transition: all 0.2s ease-in-out;
+}
+.optionD {
+  color: rgb(138, 34, 25);
+}
+.optionD:hover {
+  cursor: pointer;
+  transform: scale(1.21);
+  transition: all 0.2s ease-in-out;
+}
+.tableData:hover {
+  cursor: pointer;
+  transform: scale(1.11);
+  transition: all 0.2s ease-in-out;
+}
+
+/*Student CSS */
+.fourth {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+  width: 100%;
+  background-color: #fff;
+  /* border-radius: 10px; */
+  /* box-shadow: 4px 0 10px 0 rgba(117, 116, 116, 0.2); */
+  /* border-bottom: 2px solid grey; */
+  overflow: hidden;
+  gap: 10px;
+  padding: 20px;
+  /* border-bottom: 1px solid rgb(146, 139, 139); */
+}
+
+/* Subject Details CSS */
+.description {
+  width: 100%;
+  height: auto;
+  /* border: 1px solid grey; */
+  padding: 10px;
+  background-color: #c6c1c143;
+  border-radius: 10px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+.grids {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
