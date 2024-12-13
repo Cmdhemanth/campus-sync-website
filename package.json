@@ -15,6 +15,7 @@
     "@headlessui/react": "^2.2.0",
     "@mui/icons-material": "^6.2.0",
     "@mui/material": "^6.2.0",
+    "@mui/x-charts": "^7.23.2",
     "@mui/x-date-pickers": "^7.23.2",
     "autoprefixer": "^10.4.20",
     "clsx": "^2.1.1",

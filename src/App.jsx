@@ -16,17 +16,20 @@ import Subject from "./components/Subject/SubjectDetails";
 import Assignment from "./components/Assignment/AssignmentCard";
 import AssessmentCard from "./components/Assignment/AssessmentCard";
 import Performance from "./components/OverallPerformance/Performance";
+import StudentDetails from "./components/Student/StudentDetails";
+import Inst from "./components/InstitutionSPOC/Institution";
 function App() {
   return (
     <BrowserRouter>
       <div className="flex-1 flex flex-col">
         <Header />
         <div className="main">
-          <Routes>
+          <Inst />
+          {/* <Routes>
             <Route index element={<Dept />} />
             <Route path="/admin" element={<CollegeForm />} />
             <Route path="/subject" element={<Subject />} />
-          </Routes>
+          </Routes> */}
         </div>
         {/* <Form /> */}
       </div>

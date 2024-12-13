@@ -9,10 +9,10 @@ export default function Performance() {
             <p className={styles.regid}>4VM21IS006</p>
           </div>
           <div className={styles.grid}>
-            <p>Attendance</p>
-            <p>Attendance Percentage</p>
-            <p>20/70</p>
-            <p>15%</p>
+            <span>Attendance</span>
+            <span>Attendance Percentage</span>
+            <span>20/70</span>
+            <span>15%</span>
           </div>
         </div>
         <div className={styles.body}>
