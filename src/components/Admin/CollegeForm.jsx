@@ -4,10 +4,23 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { styled, alpha } from "@mui/material/styles";
 import CollegeCard from "./CollegeCard";
-import Button from "@mui/material/Button";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Error } from "@mui/icons-material";
+import Button from "@mui/material/Button";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -141,7 +154,7 @@ export default function CollegeForm() {
         </div>
         <div className={styles.container}>
           <div className={styles.section}>
-            <h3>Orgainzation Details</h3>
+            <h3>Organization Details</h3>
             <div className={styles.grid}>
               {/* <label htmlFor="collegeName">College Name</label> */}
               <FormControl variant="standard">
@@ -206,6 +219,26 @@ export default function CollegeForm() {
                   ref={orgStateRef}
                 />
               </FormControl>
+            </div>
+            <label>Upload Image</label>
+            <div className={styles.upload}>
+              <img src="src\assets\user.png" className={styles.image} />
+              <div>
+                <Button
+                  component="label"
+                  role={undefined}
+                  variant="contained"
+                  tabIndex={-1}
+                  startIcon={<CloudUploadIcon />}
+                >
+                  Upload files
+                  <VisuallyHiddenInput
+                    type="file"
+                    onChange={(event) => console.log(event.target.files)}
+                    multiple
+                  />
+                </Button>
+              </div>
             </div>
           </div>
 
