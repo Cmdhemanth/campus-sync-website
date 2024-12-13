@@ -1,30 +1,13 @@
-import { InputBase } from "@mui/material";
+import { Box, InputBase, LinearProgress } from "@mui/material";
 import styles from "./CollegeForm.module.css";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { styled, alpha } from "@mui/material/styles";
 import CollegeCard from "./CollegeCard";
 import Button from "@mui/material/Button";
-
-// const CssTextField = styled(TextField)({
-//   "& label.Mui-focused": {
-//     color: "#A0AAB4",
-//   },
-//   "& .MuiInput-underline:after": {
-//     borderBottomColor: "#B2BAC2",
-//   },
-//   "& .MuiOutlinedInput-root": {
-//     "& fieldset": {
-//       borderColor: "#E0E3E7",
-//     },
-//     "&:hover fieldset": {
-//       borderColor: "#B2BAC2",
-//     },
-//     "&.Mui-focused fieldset": {
-//       borderColor: "#6F7E8C",
-//     },
-//   },
-// });
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { Error } from "@mui/icons-material";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -69,19 +52,92 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function CollegeForm() {
+  const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const imgRef = useRef(null);
+
+  const orgNameRef = useRef(null);
+  const orgCityRef = useRef(null);
+  const orgStateRef = useRef(null);
+  const orgAddressRef = useRef(null);
+  const handlerNameRef = useRef(null);
+  const handlerEmailRef = useRef(null);
+  const handlerPhoneRef = useRef(null);
+  const handlerQualificationRef = useRef(null);
+
+  const accountType = "admin";
+  const accessToken = "aaa";
+  const accountId = "671bbe405efd9c614beb992a";
+
+  const uploadImage = (e) => {
+    e.preventDefault();
+  };
+
+  const addInstitutionHandler = (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: orgNameRef.current.value,
+      city: orgCityRef.current.value,
+      state: orgStateRef.current.value,
+      address: orgAddressRef.current.value,
+
+      handler: {
+        name: handlerNameRef.current.value,
+        email: handlerEmailRef.current.value,
+        phone: handlerPhoneRef.current.value,
+        qualification: handlerQualificationRef.current.value,
+      },
+    };
+  };
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    if (!isMounted) return;
+
+    setIsLoading(true);
+
+    const baseUrl = import.meta.env.VITE_API_URL;
+    axios
+      .get(`${baseUrl}/institution/list`, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_API_KEY,
+          "x-account-type": accountType,
+          "x-access-token": accessToken,
+          "x-account-id": accountId,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [isMounted]);
+
+  console.log(isLoading);
+
   return (
     <>
       <div className={styles.parent}>
         <div className={styles.cards_container}>
-          <CollegeCard />
-          <CollegeCard />
-          <CollegeCard />
-          <CollegeCard />
-          <CollegeCard />
-          <CollegeCard />
-          <CollegeCard />
-          <CollegeCard />
-          <CollegeCard />
+          {isLoading ? (
+            <Box sx={{ width: "100%" }}>
+              <LinearProgress />
+            </Box>
+          ) : (
+            <>
+              <CollegeCard />
+              <CollegeCard />
+              <CollegeCard />
+            </>
+          )}
         </div>
         <div className={styles.container}>
           <div className={styles.section}>
@@ -100,6 +156,7 @@ export default function CollegeForm() {
                   className={styles.input}
                   placeholder="Enter Organization Name"
                   id="bootstrap-input"
+                  ref={orgNameRef}
                 />
               </FormControl>
               <FormControl variant="standard" sx={{ width: "100%" }}>
@@ -114,6 +171,7 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="EnterStreet Name, Area"
                   id="bootstrap-input"
+                  ref={orgAddressRef}
                 />
               </FormControl>
 
@@ -126,7 +184,11 @@ export default function CollegeForm() {
                 >
                   City
                 </InputLabel>
-                <BootstrapInput placeholder="Enter City" id="bootstrap-input" />
+                <BootstrapInput
+                  placeholder="Enter City"
+                  id="bootstrap-input"
+                  ref={orgCityRef}
+                />
               </FormControl>
 
               <FormControl variant="standard">
@@ -141,6 +203,7 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="Enter State"
                   id="bootstrap-input"
+                  ref={orgStateRef}
                 />
               </FormControl>
             </div>
@@ -161,6 +224,7 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="Enter SPOC Name"
                   id="bootstrap-input"
+                  ref={handlerNameRef}
                 />
               </FormControl>
               <FormControl variant="standard" sx={{ width: "100%" }}>
@@ -175,6 +239,7 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="Enter Qualifications"
                   id="bootstrap-input"
+                  ref={handlerQualificationRef}
                 />
               </FormControl>
               <FormControl variant="standard" sx={{ width: "100%" }}>
@@ -189,6 +254,7 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="+91**********"
                   id="bootstrap-input"
+                  ref={handlerPhoneRef}
                 />
               </FormControl>
               <FormControl variant="standard" sx={{ width: "100%" }}>
@@ -203,6 +269,7 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="********@gmail.com"
                   id="bootstrap-input"
+                  ref={handlerEmailRef}
                 />
               </FormControl>
             </div>
