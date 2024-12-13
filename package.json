@@ -18,6 +18,7 @@
     "@mui/x-charts": "^7.23.2",
     "@mui/x-date-pickers": "^7.23.2",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.7.9",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "framer-motion": "^11.13.4",
