@@ -4,9 +4,9 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { styled, alpha } from "@mui/material/styles";
 import CollegeCard from "./CollegeCard";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { Error } from "@mui/icons-material";
+import UserImage from "../../assets/user.png";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
@@ -67,17 +67,18 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 export default function CollegeForm() {
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [imgUrl, setImgUrl] = useState(UserImage);
 
-  const imgRef = useRef(null);
+  const [orgnName, setOrgName] = useState("");
+  const [orgCity, setOrgCity] = useState("");
+  const [orgState, setOrgState] = useState("");
+  const [orgAddress, setOrgAddress] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userQualification, setUserQualification] = useState("");
 
-  const orgNameRef = useRef(null);
-  const orgCityRef = useRef(null);
-  const orgStateRef = useRef(null);
-  const orgAddressRef = useRef(null);
-  const handlerNameRef = useRef(null);
-  const handlerEmailRef = useRef(null);
-  const handlerPhoneRef = useRef(null);
-  const handlerQualificationRef = useRef(null);
+  const [institutions, setInstitutions] = useState([]);
 
   const accountType = "admin";
   const accessToken = "aaa";
@@ -85,24 +86,90 @@ export default function CollegeForm() {
 
   const uploadImage = (e) => {
     e.preventDefault();
+
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const baseUrl = import.meta.env.VITE_API_URL;
+    axios
+      .post(`${baseUrl}/image/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-api-key": import.meta.env.VITE_API_KEY,
+          "x-account-type": accountType,
+          "x-access-token": accessToken,
+          "x-account-id": accountId,
+        },
+      })
+      .then((response) => {
+        const url = response.data.data.url;
+        console.log(response.data);
+
+        setImgUrl(url);
+      })
+      .catch((error) => {
+        console.error("Error uploading file:", error);
+      });
   };
 
   const addInstitutionHandler = (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const data = {
-      name: orgNameRef.current.value,
-      city: orgCityRef.current.value,
-      state: orgStateRef.current.value,
-      address: orgAddressRef.current.value,
+      name: orgnName,
+      city: orgCity,
+      state: orgState,
+      address: orgAddress,
+      image: imgUrl,
 
       handler: {
-        name: handlerNameRef.current.value,
-        email: handlerEmailRef.current.value,
-        phone: handlerPhoneRef.current.value,
-        qualification: handlerQualificationRef.current.value,
+        name: userName,
+        email: userEmail,
+        phone: Number(userPhone),
+        qualification: userQualification,
       },
     };
+
+    const baseUrl = import.meta.env.VITE_API_URL;
+    axios
+      .post(`${baseUrl}/institution/add`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_API_KEY,
+          "x-account-type": accountType,
+          "x-access-token": accessToken,
+          "x-account-id": accountId,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setInstitutions((prevValues) => [
+            ...prevValues,
+            {
+              name: orgnName,
+              city: orgCity,
+              state: orgState,
+              address: orgAddress,
+              image: imgUrl,
+
+              handler: {
+                name: userName,
+                email: userEmail,
+                phone: Number(userPhone),
+                qualification: userQualification,
+              },
+            },
+          ]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -124,7 +191,10 @@ export default function CollegeForm() {
         },
       })
       .then((res) => {
-        console.log(res);
+        const data = res.data.data;
+        if (!data) return;
+
+        setInstitutions(data.institutions);
       })
       .catch((err) => {
         console.log(err);
@@ -133,8 +203,6 @@ export default function CollegeForm() {
         setIsLoading(false);
       });
   }, [isMounted]);
-
-  console.log(isLoading);
 
   return (
     <>
@@ -146,9 +214,9 @@ export default function CollegeForm() {
             </Box>
           ) : (
             <>
-              <CollegeCard />
-              <CollegeCard />
-              <CollegeCard />
+              {institutions.map((institution) => (
+                <CollegeCard key={institution.id} institution={institution} />
+              ))}
             </>
           )}
         </div>
@@ -169,7 +237,8 @@ export default function CollegeForm() {
                   className={styles.input}
                   placeholder="Enter Organization Name"
                   id="bootstrap-input"
-                  ref={orgNameRef}
+                  value={orgnName}
+                  onChange={(e) => setOrgName(e.target.value)}
                 />
               </FormControl>
               <FormControl variant="standard" sx={{ width: "100%" }}>
@@ -184,7 +253,8 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="EnterStreet Name, Area"
                   id="bootstrap-input"
-                  ref={orgAddressRef}
+                  value={orgAddress}
+                  onChange={(e) => setOrgAddress(e.target.value)}
                 />
               </FormControl>
 
@@ -200,7 +270,8 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="Enter City"
                   id="bootstrap-input"
-                  ref={orgCityRef}
+                  value={orgCity}
+                  onChange={(e) => setOrgCity(e.target.value)}
                 />
               </FormControl>
 
@@ -216,13 +287,20 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="Enter State"
                   id="bootstrap-input"
-                  ref={orgStateRef}
+                  value={orgState}
+                  onChange={(e) => setOrgState(e.target.value)}
                 />
               </FormControl>
             </div>
             <label>Upload Image</label>
             <div className={styles.upload}>
-              <img src="src\assets\user.png" className={styles.image} />
+              <div
+                className={styles.image}
+                style={{
+                  background:
+                    "url(" + imgUrl + ") no-repeat center center/cover",
+                }}
+              />
               <div>
                 <Button
                   component="label"
@@ -234,7 +312,7 @@ export default function CollegeForm() {
                   Upload files
                   <VisuallyHiddenInput
                     type="file"
-                    onChange={(event) => console.log(event.target.files)}
+                    onChange={uploadImage}
                     multiple
                   />
                 </Button>
@@ -257,7 +335,8 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="Enter SPOC Name"
                   id="bootstrap-input"
-                  ref={handlerNameRef}
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </FormControl>
               <FormControl variant="standard" sx={{ width: "100%" }}>
@@ -272,7 +351,8 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="Enter Qualifications"
                   id="bootstrap-input"
-                  ref={handlerQualificationRef}
+                  value={userQualification}
+                  onChange={(e) => setUserQualification(e.target.value)}
                 />
               </FormControl>
               <FormControl variant="standard" sx={{ width: "100%" }}>
@@ -287,7 +367,8 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="+91**********"
                   id="bootstrap-input"
-                  ref={handlerPhoneRef}
+                  value={userPhone}
+                  onChange={(e) => setUserPhone(e.target.value)}
                 />
               </FormControl>
               <FormControl variant="standard" sx={{ width: "100%" }}>
@@ -302,12 +383,17 @@ export default function CollegeForm() {
                 <BootstrapInput
                   placeholder="********@gmail.com"
                   id="bootstrap-input"
-                  ref={handlerEmailRef}
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
                 />
               </FormControl>
             </div>
           </div>
-          <Button variant="contained" color="success">
+          <Button
+            variant="contained"
+            color="success"
+            onClick={addInstitutionHandler}
+          >
             Save
           </Button>
         </div>
