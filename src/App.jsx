@@ -46,6 +46,7 @@ function App() {
             <Route path="/admin" element={<CollegeForm />} />
             <Route path="/institution-spoc" element={<Inst />} />
             <Route path="/subject" element={<Subject />} />
+            <Route path="/department-spoc" element={<Dept />} />
           </Routes>
         </main>
       </div>

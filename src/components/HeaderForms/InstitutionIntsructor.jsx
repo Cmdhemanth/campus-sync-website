@@ -1,4 +1,5 @@
 import styles from "../Instructorform/FormInst.module.css";
+import UserImage from "../../assets/user.png";
 import Dropdown from "../ExistingInstructor/Dropdown";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -14,6 +15,8 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import axios from "axios";
+import { GetTokenCookie, GetUserCookie } from "../../utils/auth/cookies";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -27,6 +30,56 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 export default function Form({ open, setOpen }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [position, setPosition] = useState("");
+  const [image, setImage] = useState(UserImage);
+  const [registration, setRegistration] = useState("");
+
+  const uploadImage = (e) => {
+    e.preventDefault();
+    console.log("Uploading");
+
+    const user = GetUserCookie();
+    const accountType = user.account_type;
+    const accountId = user.id;
+    const accessToken = GetTokenCookie();
+
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const baseUrl = import.meta.env.VITE_API_URL;
+    axios
+      .post(`${baseUrl}/image/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-api-key": import.meta.env.VITE_API_KEY,
+          "x-account-type": accountType,
+          "x-access-token": accessToken,
+          "x-account-id": accountId,
+        },
+      })
+      .then((response) => {
+        const url = response.data.data.url;
+        console.log(response.data);
+
+        setImage(url);
+      })
+      .catch((error) => {
+        console.error("Error uploading file:", error);
+      });
+  };
+
+  const addInstructorHandler = (e) => {
+    e.preventDefault();
+
+    setOpen(false);
+  };
+
+  console.log(image);
+
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -44,7 +97,13 @@ export default function Form({ open, setOpen }) {
               <form className={styles.form}>
                 <label className={styles.label}>Enter Instructor Name</label>
                 <Box sx={{ width: 500, maxWidth: "100%" }}>
-                  <TextField fullWidth label="Instructor Name" id="fullWidth" />
+                  <TextField
+                    fullWidth
+                    label="Instructor Name"
+                    id="fullWidth"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </Box>
                 <div className={styles.second}>
                   <div className={styles.phone}>
@@ -54,6 +113,8 @@ export default function Form({ open, setOpen }) {
                         label="Qualification"
                         id="fullWidth"
                         placeholder="Enter Qualifications"
+                        value={position}
+                        onChange={(e) => setPosition(e.target.value)}
                       />
                     </Box>
                   </div>
@@ -64,13 +125,22 @@ export default function Form({ open, setOpen }) {
                         label="Registration ID"
                         id="fullWidth"
                         placeholder="Enter Registration ID"
+                        value={registration}
+                        onChange={(e) => setRegistration(e.target.value)}
                       />
                     </Box>
                   </div>
                 </div>
                 <label>Upload Image</label>
                 <div className={styles.upload}>
-                  <img src="src\assets\user.png" className={styles.image} />
+                  <div
+                    className={styles.image}
+                    style={{
+                      background:
+                        "url(" + image + ") no-repeat center center/cover",
+                    }}
+                  />
+
                   <div>
                     <Button
                       component="label"
@@ -82,7 +152,7 @@ export default function Form({ open, setOpen }) {
                       Upload Image
                       <VisuallyHiddenInput
                         type="file"
-                        onChange={(event) => console.log(event.target.files)}
+                        onChange={uploadImage}
                         multiple
                       />
                     </Button>
@@ -96,6 +166,8 @@ export default function Form({ open, setOpen }) {
                         label="Phone Number"
                         id="fullWidth"
                         placeholder="+91**********"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                       />
                     </Box>
                   </div>
@@ -106,6 +178,8 @@ export default function Form({ open, setOpen }) {
                         label="Email"
                         id="fullWidth"
                         placeholder="********@gmail.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </Box>
                   </div>
@@ -115,7 +189,7 @@ export default function Form({ open, setOpen }) {
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={addInstructorHandler}
                 className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 sm:ml-3 sm:w-auto"
               >
                 Save

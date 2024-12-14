@@ -5,6 +5,10 @@ import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { GetTokenCookie, GetUserCookie } from "../../utils/auth/cookies";
+import { useState } from "react";
+import UserImage from "../../assets/user.png";
+import axios from "axios";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -18,6 +22,66 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 export default function Form() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [position, setPosition] = useState("");
+  const [image, setImage] = useState(UserImage);
+  const [registration, setRegistration] = useState("");
+
+  const uploadImage = (e) => {
+    e.preventDefault();
+    console.log("Uploading");
+
+    const user = GetUserCookie();
+    const accountType = user.account_type;
+    const accountId = user.id;
+    const accessToken = GetTokenCookie();
+
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const baseUrl = import.meta.env.VITE_API_URL;
+    axios
+      .post(`${baseUrl}/image/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-api-key": import.meta.env.VITE_API_KEY,
+          "x-account-type": accountType,
+          "x-access-token": accessToken,
+          "x-account-id": accountId,
+        },
+      })
+      .then((response) => {
+        const url = response.data.data.url;
+        console.log(response.data);
+
+        setImage(url);
+      })
+      .catch((error) => {
+        console.error("Error uploading file:", error);
+      });
+  };
+
+  // const addInstructorHandler = (e) => {
+  //   e.preventDefault();
+
+  //   const data = {
+  //     name: name,
+  //     email: email,
+  //     phone: phone,
+  //     position: position,
+  //     image: image,
+  //     registration_id: registration,
+  //   }
+
+  //   axios
+  //     .post(`${import.meta.env.VITE_API_URL}/instructor`, {}
+  // };
+
+  // console.log(image);
+
   return (
     // <div className={styles.container}>
     //   <form>
@@ -208,7 +272,12 @@ export default function Form() {
         </div>
         <label>Upload Image</label>
         <div className={styles.upload}>
-          <img src="src\assets\user.png" className={styles.image} />
+          <div
+            className={styles.image}
+            style={{
+              background: "url(" + image + ") no-repeat center center/cover",
+            }}
+          />
           <div>
             <Button
               component="label"
@@ -220,7 +289,7 @@ export default function Form() {
               Upload files
               <VisuallyHiddenInput
                 type="file"
-                onChange={(event) => console.log(event.target.files)}
+                onChange={uploadImage}
                 multiple
               />
             </Button>

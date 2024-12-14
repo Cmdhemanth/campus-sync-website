@@ -7,13 +7,25 @@ import { Mail } from "lucide-react";
 import FormInstNew from "../Instructorform/FormInstNew";
 import { useState } from "react";
 import InstructorRow from "../TableRow/InstructorRow";
+import InstitutionHeader from "../HeaderForms/InstitutionHeader";
+import InstituteInstructorForm from "../HeaderForms/InstitutionIntsructor";
 
 export default function Inst() {
   const [formActive, setFormActive] = useState(false);
+  const [headerFormActive, setHeaderFormActive] = useState(false);
+  const [instFormActive, setInstFormActive] = useState(false);
 
   return (
     <>
       <FormInstNew isActive={formActive} setActive={setFormActive} />
+      <InstitutionHeader
+        open={headerFormActive}
+        setOpen={setHeaderFormActive}
+      />
+      <InstituteInstructorForm
+        open={instFormActive}
+        setOpen={setInstFormActive}
+      />
 
       <div className={styles.container}>
         <div className={styles.first}>
@@ -21,7 +33,10 @@ export default function Inst() {
             <h1 className={styles.main_title}>
               Information Science and Engineering
             </h1>
-            <a className={styles.button}>
+            <a
+              className={styles.button}
+              onClick={() => setHeaderFormActive(true)}
+            >
               <ArrowRightToLine className={styles.icon} /> <p>Edit Details</p>
             </a>
           </div>
@@ -70,7 +85,10 @@ export default function Inst() {
         <div className={styles.third}>
           <div className={styles.headertwo}>
             <h2 className={styles.sub_titles}>Instructor Details</h2>
-            <div className={styles.buttontwo}>
+            <div
+              className={styles.buttontwo}
+              onClick={() => setInstFormActive(true)}
+            >
               <Plus className={styles.icontwo} />
               <p>Add Instructor</p>
             </div>
