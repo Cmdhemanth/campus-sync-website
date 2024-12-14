@@ -1,0 +1,73 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  margin-bottom: 12px;
+}
+.parent {
+  width: 100%;
+  margin: 2rem auto;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.title {
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+  color: #000;
+}
+
+.percentage {
+  font-size: 1.5rem;
+  color: #2887a7;
+}
+
+/* Week Selector */
+.week_selector {
+  display: flex;
+  align-items: center;
+}
+
+.week_selector select,
+.arrow {
+  margin: 0 0.5rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+
+.table_container {
+  /* overflow-x: auto; */
+  padding: 10px;
+  color: #333;
+}
+
+.table {
+  width: 100%;
+  margin: auto;
+  margin-top: 1rem;
+  border-radius: 20px;
+}
+
+.table_header {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 0.8rem;
+  background-color: #b5aa91d6;
+}
+.week {
+  width: 99%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}

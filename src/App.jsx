@@ -14,6 +14,7 @@ import InstInstructor from "./components/HeaderForms/InstitutionIntsructor";
 import DeptStudents from "./components/HeaderForms/DepartmentStudents";
 import DeptSubjects from "./components/HeaderForms/DepartmentSubjects";
 import Cards from "./components/ClassCards/CardsGrid";
+import Attendance from "./components/Attendance/Attendance";
 import { useState } from "react";
 function App() {
   const [tempState, setTempState] = useState(true);
@@ -24,7 +25,7 @@ function App() {
         <Header />
         <div className="main">
           {/* <DeptSubjects open={tempState} setOpen={setTempState} /> */}
-          <Cards />
+          <Dept />
           {/* <Routes>
             <Route index element={<Dept />} />
             <Route path="/admin" element={<CollegeForm />} />

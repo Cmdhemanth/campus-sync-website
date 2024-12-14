@@ -81,8 +81,8 @@ export default function CollegeForm() {
   const [institutions, setInstitutions] = useState([]);
 
   const accountType = "admin";
-  const accessToken = "aaa";
-  const accountId = "671bbe405efd9c614beb992a";
+  const accessToken = "Bearer aaaaa";
+  const accountId = "675d159def6e6e6561474556";
 
   const uploadImage = (e) => {
     e.preventDefault();
