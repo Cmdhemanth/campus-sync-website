@@ -1,8 +1,15 @@
 import { User, LogOut } from "lucide-react";
-import { getUser } from "../../helpers/user";
+import {
+  DeleteTokenCookie,
+  DeleteUserCookie,
+  GetUserCookie,
+} from "../../utils/auth/cookies";
+import { DeleteUserLocalStorage } from "../../utils/auth/local-storage";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
-  const user = getUser();
+  const user = GetUserCookie();
+  const router = useNavigate();
 
   return (
     <header className="bg-white shadow-sm">
@@ -19,7 +26,10 @@ export const Header = () => {
             </button>
             <button
               onClick={() => {
-                console.log("logout");
+                DeleteUserCookie();
+                DeleteTokenCookie();
+                DeleteUserLocalStorage();
+                router("/");
               }}
               className="p-2 rounded-full hover:bg-gray-100"
             >

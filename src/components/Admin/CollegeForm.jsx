@@ -9,6 +9,7 @@ import axios from "axios";
 import UserImage from "../../assets/user.png";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { GetTokenCookie, GetUserCookie } from "../../utils/auth/cookies";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -80,9 +81,12 @@ export default function CollegeForm() {
 
   const [institutions, setInstitutions] = useState([]);
 
-  const accountType = "admin";
-  const accessToken = "aaa";
-  const accountId = "671bbe405efd9c614beb992a";
+  const user = GetUserCookie();
+  const token = GetTokenCookie();
+
+  const accountType = user.account_type;
+  const accessToken = token;
+  const accountId = user.id;
 
   const uploadImage = (e) => {
     e.preventDefault();

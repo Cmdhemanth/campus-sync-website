@@ -1,11 +1,8 @@
 import styles from "./Dept.module.css";
-import { ArrowRightToLine } from "lucide-react";
 import { Users } from "lucide-react";
 import { Plus } from "lucide-react";
 import { Phone } from "lucide-react";
 import { Mail } from "lucide-react";
-import { FilePenLine } from "lucide-react";
-import { Trash2 } from "lucide-react";
 import SubjectRow from "../TableRow/SubjectRow";
 import StudentRow from "../TableRow/StudentRow";
 import FormInstNew from "../Instructorform/FormInstNew";
@@ -75,8 +72,8 @@ export default function Dept() {
             </div>
           </div>
           <table
-            cellspacing="5"
-            cellpadding="5"
+            cellSpacing="5"
+            cellPadding="5"
             className={styles.tableContainer}
           >
             <thead>
@@ -104,7 +101,7 @@ export default function Dept() {
               <p>Assign Student</p>
             </div>
           </div>
-          <table cellspacing="5" cellpadding="5">
+          <table cellSpacing="5" cellPadding="5">
             <thead>
               <tr className={styles.tableRow}>
                 <th className={styles.tableHeader}>Registration ID</th>

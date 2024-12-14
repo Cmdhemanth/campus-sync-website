@@ -1,4 +1,4 @@
-import styles from "./Cards.module.css";
+import styles from "../ClassCards/Cards.module.css";
 import { Users } from "lucide-react";
 
 export default function Cards() {
@@ -23,7 +23,7 @@ export default function Cards() {
               </div>
             </div>
             <p className={`${styles.instName} ${styles.pad_top}`}>
-              Class Instructor: <span>Mr. Ram</span>
+              Department SPOC: <span>Mr. Ram</span>
             </p>
           </div>
         </div>

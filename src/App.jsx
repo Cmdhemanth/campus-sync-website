@@ -1,6 +1,12 @@
 import "./App.css";
 import { Header } from "./components/layout/Header";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Dept from "./components/DepartmentSPOC/Dept";
 import CollegeForm from "./components/Admin/CollegeForm";
 import Subject from "./components/Subject/SubjectDetails";
@@ -14,27 +20,36 @@ import InstInstructor from "./components/HeaderForms/InstitutionIntsructor";
 import DeptStudents from "./components/HeaderForms/DepartmentStudents";
 import DeptSubjects from "./components/HeaderForms/DepartmentSubjects";
 import Cards from "./components/ClassCards/CardsGrid";
-import { useState } from "react";
+import LoginPage from "./components/Login/login-page";
+import { useEffect, useState } from "react";
+import { Sidebar } from "./components/layout/Sidebar";
+import { GetUserCookie } from "./utils/auth/cookies";
+import DepartmentCards from "./components/InstitutionSPOC/DepartmentCards";
 function App() {
   const [tempState, setTempState] = useState(true);
+  const user = GetUserCookie();
+  const accountType = user?.account_type;
+  const location = useLocation();
+
+  useEffect(() => {}, [location.pathname]);
 
   return (
-    <BrowserRouter>
+    <div className="flex min-h-screen bg-gray-100">
+      {user && (accountType === "student" || accountType === "instructor") && (
+        <Sidebar />
+      )}
       <div className="flex-1 flex flex-col">
-        <Header />
-        <div className="main">
-          {/* <DeptSubjects open={tempState} setOpen={setTempState} /> */}
-          <Cards />
-          {/* <Routes>
-            <Route index element={<Dept />} />
+        {user && <Header />}
+        <main className={`flex-1 ${user ? "p-8" : ""}`}>
+          <Routes>
+            <Route index element={<LoginPage />} />
             <Route path="/admin" element={<CollegeForm />} />
+            <Route path="/institution-spoc" element={<Inst />} />
             <Route path="/subject" element={<Subject />} />
-          </Routes> */}
-        </div>
-
-        {/* <Form /> */}
+          </Routes>
+        </main>
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 
