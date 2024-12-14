@@ -7,6 +7,7 @@ import SubjectRow from "../TableRow/SubjectRow";
 import StudentRow from "../TableRow/StudentRow";
 import FormInstNew from "../Instructorform/FormInstNew";
 import { useState } from "react";
+import Attendance from "../Attendance/Attendance";
 
 export default function Dept() {
   const [formActive, setFormActive] = useState(false);
@@ -120,6 +121,7 @@ export default function Dept() {
             </tbody>
           </table>
         </div>
+        <Attendance />
       </div>
     </>
   );

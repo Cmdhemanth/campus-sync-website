@@ -57,3 +57,7 @@
   transform: scale(1.11);
   transition: all 0.2s ease-in-out;
 }
+.bgcolor {
+  color: #333;
+  background-color: #eceae5d6;
+}

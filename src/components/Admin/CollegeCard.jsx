@@ -1,6 +1,6 @@
 import styles from "./CollegeCard.module.css";
 export default function CollegeCard({ institution }) {
-  const { image, name, address, handler } = institution ?? {};
+  const { image, name, address, handler, city, state } = institution ?? {};
   const { name: hname, email, phone } = handler ?? {};
 
   return (
@@ -17,7 +17,9 @@ export default function CollegeCard({ institution }) {
             <div className={styles.name}>
               <p>{name}</p>
             </div>
-            <span className={styles.address}>{address}</span>
+            <span className={styles.address}>
+              {address}, {city}, {state}
+            </span>
             <div className={styles.spoc}>
               <h3>SPOC Details</h3>
               <div className={styles.spoc_details}>
