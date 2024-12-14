@@ -9,19 +9,29 @@ import AssessmentCard from "./components/Assignment/AssessmentCard";
 import Performance from "./components/OverallPerformance/Performance";
 import StudentDetails from "./components/Student/StudentDetails";
 import Inst from "./components/InstitutionSPOC/Institution";
+import InstHeader from "./components/HeaderForms/InstitutionHeader";
+import InstInstructor from "./components/HeaderForms/InstitutionIntsructor";
+import DeptStudents from "./components/HeaderForms/DepartmentStudents";
+import DeptSubjects from "./components/HeaderForms/DepartmentSubjects";
+import Cards from "./components/ClassCards/CardsGrid";
+import { useState } from "react";
 function App() {
+  const [tempState, setTempState] = useState(true);
+
   return (
     <BrowserRouter>
       <div className="flex-1 flex flex-col">
         <Header />
         <div className="main">
-          {/* <Inst /> */}
-          <Routes>
+          {/* <DeptSubjects open={tempState} setOpen={setTempState} /> */}
+          <Cards />
+          {/* <Routes>
             <Route index element={<Dept />} />
             <Route path="/admin" element={<CollegeForm />} />
             <Route path="/subject" element={<Subject />} />
-          </Routes>
+          </Routes> */}
         </div>
+
         {/* <Form /> */}
       </div>
     </BrowserRouter>

@@ -20,9 +20,6 @@ export default function SubjectDetails() {
             <h1 className={styles.main_title}>
               Cryptography and Network Security
             </h1>
-            <a className={styles.button}>
-              <ArrowRightToLine className={styles.icon} /> <p>Edit Details</p>
-            </a>
           </div>
           <div className={styles.description}>
             Lorem Ipsum is simply dummy text of the printing and typesetting

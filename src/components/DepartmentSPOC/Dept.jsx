@@ -22,9 +22,6 @@ export default function Dept() {
         <div className={styles.first}>
           <div className={styles.header}>
             <h1 className={styles.main_title}>First Year</h1>
-            <a className={styles.button}>
-              <ArrowRightToLine className={styles.icon} /> <p>Edit Details</p>
-            </a>
           </div>
           <div className="flex items-center justify-around text-sm text-gray-500">
             <div className="flex items-center">
